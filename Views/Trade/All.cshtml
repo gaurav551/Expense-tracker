@@ -1,0 +1,75 @@
+
+
+
+@model List<TradeResult>
+
+  <div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-between">
+        <a  class="btn btn-outline-dark" asp-action="Add" asp-controller="Trade" asp-route-company2="@ViewBag.cname" >Start</a>
+        <a  class="btn btn-outline-dark" asp-action="All" asp-controller="Trade" asp-route-company2="@ViewBag.cname" >All</a>
+        <a  class="btn btn-outline-dark" asp-action="Index" asp-controller="Trade" asp-route-companyName="@ViewBag.cname" >Index</a>
+
+
+      </nav>
+  </div>
+<br>
+<br>
+@if(@ViewBag.cname==null)
+ {
+   <div class="alert alert-danger" role="alert">
+No Company has been selected
+</div>
+ }
+ else
+ {
+
+ <h3> @ViewBag.cname</h3>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      
+      <th scope="col">CompanyName</th>
+       <th scope="col">Pan</th>
+       <th scope="col">TaxableAmount</th>
+       <th> Tax </th>
+       <th scope="col">Total</th>
+      
+      
+      
+     
+
+    </tr>
+  </thead>
+  <tbody>
+ @foreach (var x in Model)
+  {
+
+    <tr>
+          
+      <th scope="row">@x.CompanyName</th>
+       <td>@x.CompanyPanNumber</td>
+       <td>@x.TaxableAmount</td>
+       <td>@x.Tax</td>
+       <td>@x.Total</td>
+      
+     
+           
+     
+<!-- YOU ARE GENIUS brother cheerup!!!! took me so long.. not good for my job. bad performance
+
+THANKS BRO
+
+-->
+            
+    </tr>
+    
+  }
+    
+    
+  </tbody>
+</table>
+ }
+
+
+
+

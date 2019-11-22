@@ -1,0 +1,114 @@
+
+
+
+
+
+
+
+@model Trade
+<div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-between">
+        <a  class="btn btn-outline-dark" asp-action="Add" asp-controller="Trade" asp-route-company2="@ViewBag.Company2" >Start</a>
+        <a  class="btn btn-outline-dark" asp-action="All" asp-controller="Trade" asp-route-company2="@ViewBag.Company2" >All</a>
+        <a  class="btn btn-outline-dark" asp-action="Index" asp-controller="Trade" asp-route-companyName="@ViewBag.Company2" >Index</a>
+        <a class="btn btn-outline-dark" data-toggle="modal" data-target="#AddPageModel" data-whatever="mdo" >New Company</a>
+
+
+      </nav>
+  </div>
+@if(@ViewBag.Company2==null)
+ {
+   <div class="alert alert-danger" role="alert">
+No Company has been selected
+</div>
+ }
+ else
+ {
+   @if(TempData["ER"]!= null)
+{
+  <div class="alert alert-danger" role="alert">
+     @TempData["ER"]
+</div>
+}
+
+ 
+
+  
+<div class="alert alert-primary" role="alert">
+  @ViewBag.Company2
+</div>
+
+<form asp-action="SaveRecord" asp-controller="Trade" asp-route-company2="@ViewBag.Company2" method="POST">
+  
+      <input type="hidden" asp-for="Id">
+   <div class="form-group">
+    <label>Name</label>
+    <select type="text" class="form-control" asp-for="CompanyName" name="cname" asp-items="@ViewBag.Name"  placeholder="" required>  </select>
+  </div>
+
+    <div class="form-group">
+    
+  </div>
+  
+  
+  
+    <div class="form-group">
+  <label>Taxable Amount</label>
+  <div class="input-group mb-3">
+       
+  <div class="input-group-prepend">
+    <span class="input-group-text">💵💰💶</span>
+  </div>
+  <input type="number" asp-for="TaxableAmount" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+  <div class="input-group-append">
+    <span class="input-group-text">.00</span>
+  </div>
+  </div>
+
+
+
+  <div class="form-group">
+    <label>Tax</label>
+    <input type="number" class="form-control" value="13" asp-for="Tax" readonly  required>
+  </div>
+</div>
+<input type="hidden" asp-for="CompanyName2" value="@ViewBag.Company2">
+<input type="hidden" asp-for="Total">
+<hr>
+<input type="submit" value="Save" class="btn btn-success">
+</form>
+ }
+
+
+<form asp-action="SaveCompany1" asp-controller="Trade"> 
+      <div class="modal fade" id="AddPageModel" tabindex="-1" role="dialog" aria-labelledby="AddPageModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <input type="hidden" value="@ViewBag.Company2" name="company3">
+        <h5 class="modal-title" id="AddPageModelLabel">New Company</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Pan Number:</label>
+            <input type="text" class="form-control" name="pan" id="pan" required id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Company Name:</label>
+            <textarea class="form-control" name="cname" id="message-text" required></textarea>
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary"  value="Save">
+      </div>
+    </div>
+  </div>
+</div>
+</form>

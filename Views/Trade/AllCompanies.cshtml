@@ -1,0 +1,29 @@
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+       <th scope="col">Id</th>
+     <th scope="col">CompanyName</th>
+       <th scope="col">Pan</th>
+        <th scope="col">Manage</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var x in Model)
+    {
+    <tr>
+      
+      <td>@x.Id</td>
+      <td>@x.CompanyName</td>
+      <td>@x.PanNumber</td>
+      <td>  <a class=" btn btn-danger delete"
+      data-id="@x.Id"
+      data-action="DeleteCompany"
+      data-body-message="Deleting company will delete all the transaction associated with this company which may affect trade of other companies"
+      data-controller="Trade"> Delete </a>  </td>
+
+    </tr>
+    }
+   
+  </tbody>
+</table>

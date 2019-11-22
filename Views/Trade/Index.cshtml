@@ -1,0 +1,101 @@
+
+<div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-between">
+        <a  class="btn btn-outline-dark" asp-action="Add" asp-controller="Trade" asp-route-company2="@ViewBag.cname" >Start</a>
+        <a  class="btn btn-outline-dark" asp-action="All" asp-controller="Trade" asp-route-company2="@ViewBag.cname" >All</a>
+        <a  class="btn btn-outline-dark" asp-action="Index" asp-controller="Trade" asp-route-companyName="@ViewBag.cname" >Index</a>
+
+      </nav>
+  </div>
+
+@model List<Trade>
+ <br>
+ <br>
+ @if(@ViewBag.cname==null)
+ {
+   <div class="alert alert-danger" role="alert">
+No Company has been selected
+</div>
+ }
+ else
+ {
+
+ <h3> @ViewBag.cname</h3>
+ 
+  <form asp-action="Index" asp-controller="Trade"  method="GET">
+
+<div class="input-group">
+        <input type="text" id="search" name="search"  class="form-control" placeholder="search by company and hit enter"/>
+       
+            <input type="submit"  value="@ViewBag.cname" style="visibility:hidden" name="companyName" id="companyName" class="btn btn-primary">
+      
+       
+ </div>
+  </form>
+<hr>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+     
+      <th scope="col">CompanyName</th>
+      
+      
+      <th scope="col">PanNumber</th>
+
+
+     
+     <!-- <th scope="col">Category</th> --->
+      <th scope="col">Taxable Amount</th>
+      <th scope="col">Tax</th>
+      <th scope="col">Total</th>
+      <th> Ation</th>
+    </tr>
+  </thead>
+  <tbody>
+ @foreach (var x in Model)
+  {
+
+    <tr>
+          
+    
+      <td>   <a asp-action="Details" asp-controller="Trade" asp-route-id="@x.CompanyId" asp-route-company2="@ViewBag.cname"> @x.CompanyName</a> </td>
+       <td>@x.CompanyPanNumber</td>
+     
+      <td>@x.TaxableAmount</td>
+     
+      <td>@x.Tax %</td>
+      <td>@x.Total</td>
+      <td> <a class=" btn btn-danger delete"
+      data-id="@x.Id"
+      data-action="Delete"
+      data-body-message="Are you sure want to delete this?"
+      data-controller="Trade"> Delete </a> 
+       </td>
+      
+           
+     
+    
+            
+    </tr>
+    
+
+  }
+    
+    
+  </tbody>
+</table>
+<button class="btn btn-outline-info" onclick="myFucn()"> Print </button>
+
+<script>
+  
+  function myFucn()
+  {
+    window.print();
+  
+  }
+  </script>
+}
+
+
+ 
